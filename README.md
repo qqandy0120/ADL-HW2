@@ -7,9 +7,12 @@
 pip install -r requirements.in
 ```
 
-## Data Preprocessing
+## Download Model
 ```shell
-# transform data into format of SWAG and SQuAD2 dataset in order to fit into model
-# they will be placed in cache
-bash preprocess.py
+bash download.sh
+```
+
+##　Do Inference
+```shell
+bash run.sh
 ```

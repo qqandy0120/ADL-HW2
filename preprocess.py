@@ -10,13 +10,14 @@ SPLIT = ['train', 'test', 'valid']
 def main(args):
     seed(args.rand_seed)
     # context_path = os.path.join(args.data_dir, 'context.json')
-    context_path: Path = args.data_dir / "context.json"
+    context_path: Path = args.path_to_context
     context: List = json.loads(context_path.read_text(encoding="utf-8"))
     id2context = {i: j for i, j in enumerate(context)}
     id2context_path: Path = args.output_dir / "id2context.json"
     id2context_path.write_text(json.dumps(id2context, ensure_ascii=False), encoding="utf-8")
 
-    data_paths: Dict[str, Path] = {split: args.data_dir / f"{split}.json" for split in SPLIT}
+    data_paths: Dict[str, Path] = {split: args.data_dir / f"{split}.json" for split in SPLIT if split != "test"}
+    data_paths["test"] = args.path_to_test
 
     swagformat_data = {
         split: [{
@@ -75,6 +76,16 @@ def parse_args() -> Namespace:
         type=Path,
         help="Directory to the dataset.",
         default="./data",
+    )
+    parser.add_argument(
+        "--path_to_context",
+        type=Path,
+        default="./data/context.json"
+    )
+    parser.add_argument(
+        "--path_to_test",
+        type=Path,
+        default="./data/test.json"
     )
     parser.add_argument("--rand_seed", type=int, help="Random seed.", default=7777)
     parser.add_argument(
