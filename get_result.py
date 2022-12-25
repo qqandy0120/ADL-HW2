@@ -33,10 +33,9 @@ def parse_args() -> Namespace:
         help="Directory to the final prediction csv.",
         default="./prediction.csv",
     )
-
+    args = parser.parse_args()
     return args
 
 if __name__ == '__main__':
     args = parse_args()
-    args.pred_path.mkdir(parents=True, exist_ok=True)
     main(args)
