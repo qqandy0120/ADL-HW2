@@ -2,7 +2,7 @@
 python preprocess.py --path_to_context "${1}" --path_to_test "${2}"
 
 # inference mc
-python3 ./multiple-choice/run_swag_infer.py \
+python ./multiple-choice/run_swag_infer.py \
   --overwrite_output \
   --do_eval \
   --max_seq_length 512 \
@@ -16,6 +16,7 @@ python3 ./multiple-choice/run_swag_infer.py \
   --gradient_accumulation_steps 2 \
   --num_train_epochs 1 \
   --config_name ./ckpt/mc/checkpoint-5000 \
+  --report_to none \
 
 # inference qa
 python ./question-answering/run_qa.py \
@@ -33,5 +34,6 @@ python ./question-answering/run_qa.py \
   --output_dir ./ckpt/qa/infer \
   --config_name ./ckpt/qa/checkpoint-13500 \
   --tokenizer_name ./ckpt/qa/checkpoint-13500 \
+  --report_to none \
 
 python ./get_result.py --pred_path "${3}"
