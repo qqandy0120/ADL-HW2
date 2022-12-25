@@ -12,7 +12,7 @@ pip install -r requirements.in
 bash download.sh
 ```
 
-##　Do Inference
+## Do Inference
 ```shell
 bash run.sh
 ```
